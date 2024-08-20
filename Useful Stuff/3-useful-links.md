@@ -5,6 +5,11 @@
 </details>
 
 <details>
+  <summary>Git exercises</summary>
+  https://github.com/BackToTech-Study/HelloGIT
+</details>
+
+<details>
   <summary>Git For Professionals</summary>
   https://www.youtube.com/watch?v=Uszj_k0DGsg&list=PLOBN4Phb8PGHvXhLpU9v-nTsgQRxUR7-R&index=1
 </details>
@@ -23,7 +28,6 @@
   <summary>Python pip and venv tutorial</summary>
   https://www.youtube.com/watch?v=eDe-z2Qy9x4
 </details>
-
 
 <details>
 <summary>Install GitBash</summary>
