@@ -20,6 +20,12 @@
 </details>
 
 <details>
+  <summary>Python pip and venv tutorial</summary>
+  https://www.youtube.com/watch?v=eDe-z2Qy9x4
+</details>
+
+
+<details>
 <summary>Install GitBash</summary>
   Git for Windows provides a BASH emulation used to run Git from the command line.  
   <a href="https://gitforwindows.org">GitBash</a>
