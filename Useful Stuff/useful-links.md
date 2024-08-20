@@ -20,11 +20,6 @@
 </details>
 
 <details>
-  <summary>Python tutorial - Tech with Tim</summary>
-  https://www.youtube.com/watch?v=sxTmJE4k0ho
-</details>
-
-<details>
 <summary>Install GitBash</summary>
   Git for Windows provides a BASH emulation used to run Git from the command line.  
   <a href="https://gitforwindows.org">GitBash</a>
