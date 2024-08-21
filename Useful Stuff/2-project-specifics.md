@@ -18,3 +18,8 @@
   <summary>huggingface</summary>
   https://huggingface.co/
 </details>
+
+<details>
+  <summary>Open source LLM</summary>
+  https://www.linkedin.com/pulse/free-open-source-alternative-chatgpt-gpts-paul-hankin-t4rte?utm_source=share&utm_medium=member_android&utm_campaign=share_via
+</details>
