@@ -1,4 +1,7 @@
 # Useful links
+
+**Git**
+
 <details>
   <summary>Git for Beginners</summary>
   https://www.youtube.com/watch?v=8JJ101D3knE
@@ -12,21 +15,6 @@
 <details>
   <summary>Git For Professionals</summary>
   https://www.youtube.com/watch?v=Uszj_k0DGsg&list=PLOBN4Phb8PGHvXhLpU9v-nTsgQRxUR7-R&index=1
-</details>
-
-<details>
-  <summary>Python tutorial - Mosh (first 4h)</summary>
-  https://www.youtube.com/watch?v=_uQrJ0TkZlc&t=17383s
-</details>
-
-<details>
-  <summary>Python tutorial - Tech with Tim</summary>
-  https://www.youtube.com/watch?v=sxTmJE4k0ho
-</details>
-
-<details>
-  <summary>Python pip and venv tutorial</summary>
-  https://www.youtube.com/watch?v=eDe-z2Qy9x4
 </details>
 
 <details>
@@ -44,3 +32,21 @@
   - [Generate SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)  
   - [Add SSH Key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 </details>  
+
+**Pyhon**
+
+<details>
+  <summary>Python tutorial - Mosh (first 4h)</summary>
+  https://www.youtube.com/watch?v=_uQrJ0TkZlc&t=17383s
+</details>
+
+<details>
+  <summary>Python tutorial - Tech with Tim</summary>
+  https://www.youtube.com/watch?v=sxTmJE4k0ho
+</details>
+
+<details>
+  <summary>Python pip and venv tutorial</summary>
+  https://www.youtube.com/watch?v=eDe-z2Qy9x4
+</details>
+
