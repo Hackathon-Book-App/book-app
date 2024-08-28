@@ -38,3 +38,14 @@ Pentru a:
      5. Pentru a realiza noi descoperiri/ a-mi face munca mai ușoară 
      6. Pentru a avea vânzări și clienți 
      7. Pentru a avea vânzări / a devenii un autor renumit
+
+Aplicatie indexare:
+        1. Utilizatorul indica adresa folderului ce conține cartile pentru indexare
+                1.1 Folderul poate contine un numar nelimitat de sub-foldere
+        2. Aplicatia citeste numele fisierelor din foldere si sub-foldere
+        3. Aplicatia raporteaza fisierele care nu au extensia .pdf
+        4. Aplicatia indexeaza continutul fisierelor cu extensia .pdf in baza de date Chroma
+
+
+
+Aplicatie de recomandare/cautare
