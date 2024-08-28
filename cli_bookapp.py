@@ -29,6 +29,7 @@ def search_books():
     
     # Logica de generare a rezumatului (de implementat)
     click.echo("Generăm un rezumat pentru cartea selectată...")
+    
 
 cli.add_command(search_books)
 
