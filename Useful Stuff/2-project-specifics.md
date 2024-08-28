@@ -1,4 +1,5 @@
 # Tutorials
+
 <details>
   <summary>Build a Command-Line To-Do App With Python and Typer</summary>
   https://realpython.com/python-typer-cli/#demo
