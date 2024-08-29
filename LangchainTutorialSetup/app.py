@@ -1,13 +1,11 @@
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.document_loaders import UnstructuredEPubLoader
+from langchain_community.document_loaders import PyPDFDirectoryLoader
 
-file_path = "C:\\Users\\raoul\\source\\Myprojects\\Hackathon\\TheBooks\\BookShare\\1984 - George Orwell.epub"
-loader = UnstructuredEPubLoader("C:\\Users\\raoul\\source\\Myprojects\\Hackathon\\TheBooks\\BookShare\\1984 - George Orwell.epub", mode="elements")
+directory_path = "C:\\Users\\raoul\\source\\Myprojects\\Hackathon\\TheBooks\\Pdf Books"
+loader = PyPDFDirectoryLoader(directory_path)
 
 docs = loader.load()
 
-# UnstructuredEPubLoader returns metadata as list, Chroma works with strings
-#Try filtering complex metadata from the document using langchain_community.vectorstores.utils.filter_complex_metadata.
+print(len(docs))
 
 import getpass
 import os
@@ -53,9 +51,6 @@ prompt = ChatPromptTemplate.from_messages(
 question_answer_chain = create_stuff_documents_chain(llm, prompt)
 rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
-results = rag_chain.invoke({"input": "Who wrote 1984?"})
+results = rag_chain.invoke({"input": "Who was part of the fellowship of the ring?"})
 
-results
-
-# print(results["context"][0].page_content)
-# print(results["context"][0].metadata)
+print(results)
