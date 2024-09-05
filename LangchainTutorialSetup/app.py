@@ -1,11 +1,10 @@
 from langchain_chroma import Chroma
-from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 from dotenv import load_dotenv
 load_dotenv(".venv/.env")
 
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=".\\embeddedBooksDB")
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="..\\..\\embeddedBooksDB")
 retriever = vectorstore.as_retriever()
 
 llm = ChatOpenAI(model="gpt-4o")
