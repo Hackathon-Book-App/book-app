@@ -1,11 +1,10 @@
 from langchain_chroma import Chroma
-from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 from dotenv import load_dotenv
 load_dotenv(".venv/.env")
 
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=".\\embeddedBooksDB")
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="..\\..\\embeddedBooksDB")
 retriever = vectorstore.as_retriever()
 
 llm = ChatOpenAI(model="gpt-4o")
@@ -35,6 +34,7 @@ prompt = ChatPromptTemplate.from_messages(
 question_answer_chain = create_stuff_documents_chain(llm, prompt)
 rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
-results = rag_chain.invoke({"input": "Who won the contest of the kill count between Legolas and Gimli?"})
+results = rag_chain.invoke({"input": "In what age did Ungoliant live?"})
 
 print(results["answer"])
+
