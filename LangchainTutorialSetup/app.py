@@ -35,6 +35,7 @@ prompt = ChatPromptTemplate.from_messages(
 question_answer_chain = create_stuff_documents_chain(llm, prompt)
 rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
-results = rag_chain.invoke({"input": "Who won the contest of the kill count between Legolas and Gimli?"})
+results = rag_chain.invoke({"input": "In what age did Ungoliant live?"})
 
 print(results["answer"])
+
