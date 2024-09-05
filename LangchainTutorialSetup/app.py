@@ -2,10 +2,8 @@ from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI
 from langchain_openai import OpenAIEmbeddings
 
-import getpass
-import os
-
-os.environ["OPENAI_API_KEY"] = getpass.getpass()
+from dotenv import load_dotenv
+load_dotenv(".venv/.env")
 
 vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=".\\embeddedBooksDB")
 retriever = vectorstore.as_retriever()
