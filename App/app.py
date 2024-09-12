@@ -1,12 +1,22 @@
 from dotenv import load_dotenv
 load_dotenv(".venv/.env")
 
+#Initiating client (the one on RPi)
+
+import chromadb
+
+client=chromadb.HttpClient(
+    host="https://better-skink-promoted.ngrok-free.app",
+    port=8000
+
+)
+
 #Instantiating vectorstore from DB and creating retriever
 
 from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="..\\..\\embeddedBooksDB")
+vectorstore = Chroma(client=client, embedding_function=OpenAIEmbeddings())
 retriever = vectorstore.as_retriever()
 
 #Instantiating LLM
@@ -43,7 +53,7 @@ rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
 #Getting user input and returning result
 
-results = rag_chain.invoke({"input": "In what age did Ungoliant live?"})
+results = rag_chain.invoke({"input": "Who wrote atlas of middle earth?"})
 
 print(results["answer"])
 
