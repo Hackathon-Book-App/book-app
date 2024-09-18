@@ -1,5 +1,4 @@
 import click
-import subprocess
 
 class Book_properties:
     def __init__(self,gen,topic,style,language,pages):
@@ -8,7 +7,6 @@ class Book_properties:
         self.style=style
         self.language=language
         self.pages=pages
-        pass
      
 Book=Book_properties('drama','prietenie','roman','engleza',500)
 
@@ -30,7 +28,11 @@ def search_books():
     Book.language = click.prompt('Limba în care este scrisă cartea')
     Book.pages = click.prompt('Numărul aproximativ de pagini', type=int)
     
-    subprocess.run(['python','app.py'])
+    # Executare app.py
+    with open('app.py') as f:
+        code = f.read()
+        exec(code)
+
     # Logica de căutare (de implementat)
     click.echo(f"Căutare cărți cu genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini.")
     click.echo("1. Cartea X")
