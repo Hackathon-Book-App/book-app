@@ -32,7 +32,12 @@ from langchain.chains import create_retrieval_chain
 #Creating prompt
 
 system_prompt = (
-    "You are an assistant for question-answering tasks. Use only the following pieces of retrieved context to answer the question.You are not allowed to use another source. If you don't know the answer, say that you don't know. Use three sentences maximum and keep the answer concise."
+    """You are an assistant for recommending books based on an user input.
+    Use only the following pieces of retrieved context to recommend books.
+    The book title and author should be taken from the metadata of the retrieved context. 
+    If you don't know the whole answer from the provided context,
+    give the partialy known answer and say that you don't know the rest of it.
+    Also include the source of your answer, where you got your information from"""
     "{context}"
 )
 
@@ -50,10 +55,8 @@ rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
 #Getting user input and returning result
 
-results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini.Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
-#results = rag_chain.invoke({"input": f'Recommend 3 books about friendship.'})
+#results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini. Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
+results = rag_chain.invoke({"input": f'Recommend 2 books about {Book.topic} and one about fellowship.'})
 
 print(results["answer"])
-#print(results["context"])
-
-
+print(results["context"])
