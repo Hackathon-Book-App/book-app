@@ -1,3 +1,5 @@
+from cli_bookapp import Book
+
 from dotenv import load_dotenv
 load_dotenv(".venv/.env")
 
@@ -30,12 +32,7 @@ from langchain.chains import create_retrieval_chain
 #Creating prompt
 
 system_prompt = (
-    "You are an assistant for question-answering tasks. "
-    "Use the following pieces of retrieved context to answer "
-    "the question. If you don't know the answer, say that you "
-    "don't know. Use three sentences maximum and keep the "
-    "answer concise."
-    "\n\n"
+    "You are an assistant for question-answering tasks. Use only the following pieces of retrieved context to answer the question.You are not allowed to use another source. If you don't know the answer, say that you don't know. Use three sentences maximum and keep the answer concise."
     "{context}"
 )
 
@@ -53,7 +50,10 @@ rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
 #Getting user input and returning result
 
-results = rag_chain.invoke({"input": "Who wrote atlas of middle earth?"})
+results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini.Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
+#results = rag_chain.invoke({"input": f'Recommend 3 books about friendship.'})
 
 print(results["answer"])
+#print(results["context"])
+
 
