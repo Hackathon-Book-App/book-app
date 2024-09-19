@@ -1,5 +1,7 @@
 import click
 
+from app import App
+
 class Book_properties:
     def __init__(self,gen,topic,style,language,pages):
         self.gen=gen
@@ -21,29 +23,27 @@ def search_books():
     click.echo(f"Salut, {name}! Ce vrei să afli nou ?")
     
     # Criterii de căutare
-  
     Book.gen = click.prompt('Introdu genul cărții')
     Book.topic = click.prompt('Despre ce este cartea')
     Book.style = click.prompt('Stilul în care este scrisă cartea')
     Book.language = click.prompt('Limba în care este scrisă cartea')
     Book.pages = click.prompt('Numărul aproximativ de pagini', type=int)
-    
-    # Executare app.py
-    with open('app.py') as f:
-        code = f.read()
-        exec(code)
 
-    # Logica de căutare (de implementat)
     click.echo(f"Căutare cărți cu genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini.")
-    click.echo("1. Cartea X")
-    click.echo("2. Cartea Y")
+
+    # Executare app.py
+    print(App())
     
+ 
+    # de implementat
+
     # Alegerea cărții
-    book_index = click.prompt('Alege cartea de la poziția', type=int)
-    click.echo(f"Cartea selectată este la poziția {book_index}")
+    #book_index = click.prompt('Alege cartea de la poziția', type=int)
+    #click.echo(f"Cartea selectată este la poziția {book_index}")
     
-    # Logica de generare a rezumatului (de implementat)
-    click.echo("Generăm un rezumat pentru cartea selectată...")
+    #Logica de generare a rezumatului (de implementat)
+    #click.echo("Generăm un rezumat pentru cartea selectată...")
+
 
 cli.add_command(search_books)
 

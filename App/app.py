@@ -1,62 +1,66 @@
-from cli_bookapp import Book
+def App():
 
-from dotenv import load_dotenv
-load_dotenv(".venv/.env")
+    from cli_bookapp import Book
 
-#Initiating client (the one on RPi)
+    from dotenv import load_dotenv
+    load_dotenv(".venv/.env")
 
-import chromadb
+    #Initiating client (the one on RPi)
 
-client=chromadb.HttpClient(
-    host="https://better-skink-promoted.ngrok-free.app",
-    port=8000
+    import chromadb
 
-)
+    client=chromadb.HttpClient(
+        host="https://better-skink-promoted.ngrok-free.app",
+        port=8000
 
-#Instantiating vectorstore from DB and creating retriever
+    )
 
-from langchain_chroma import Chroma
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+    #Instantiating vectorstore from DB and creating retriever
 
-vectorstore = Chroma(client=client, embedding_function=OpenAIEmbeddings())
-retriever = vectorstore.as_retriever()
+    from langchain_chroma import Chroma
+    from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
-#Instantiating LLM
+    vectorstore = Chroma(client=client, embedding_function=OpenAIEmbeddings())
+    retriever = vectorstore.as_retriever()
 
-llm = ChatOpenAI(model="gpt-4o")
+    #Instantiating LLM
 
-from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_retrieval_chain
+    llm = ChatOpenAI(model="gpt-4o")
 
-#Creating prompt
+    from langchain_core.prompts import ChatPromptTemplate
+    from langchain.chains.combine_documents import create_stuff_documents_chain
+    from langchain.chains import create_retrieval_chain
 
-system_prompt = (
-    """You are an assistant for recommending books based on an user input.
-    Use only the following pieces of retrieved context to recommend books.
-    The book title and author should be taken from the metadata of the retrieved context. 
-    If you don't know the whole answer from the provided context,
-    give the partialy known answer and say that you don't know the rest of it.
-    Also include the source of your answer, where you got your information from"""
-    "{context}"
-)
+    #Creating prompt
 
-prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", system_prompt),
-        ("human", "{input}"),
-    ]
-)
+    system_prompt = (
+        """You are an assistant for recommending books based on an user input.
+        Use only the following pieces of retrieved context to recommend books.
+        The book title and author should be taken from the metadata of the retrieved context. 
+        If you don't know the whole answer from the provided context,
+        give the partialy known answer and say that you don't know the rest of it.
+        Also include the source of your answer, where you got your information from"""
+        "{context}"
+    )
 
-#Creating RAG chain
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", system_prompt),
+            ("human", "{input}"),
+        ]
+    )
 
-question_answer_chain = create_stuff_documents_chain(llm, prompt)
-rag_chain = create_retrieval_chain(retriever, question_answer_chain)
+    #Creating RAG chain
 
-#Getting user input and returning result
+    question_answer_chain = create_stuff_documents_chain(llm, prompt)
+    rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
-#results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini. Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
-results = rag_chain.invoke({"input": f'Recommend 2 books about {Book.topic} and one about fellowship.'})
+    #Getting user input and returning result
 
-print(results["answer"])
-print(results["context"])
+    #results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini. Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
+    results = rag_chain.invoke({"input": f'Recommend 2 books about {Book.topic} and one about fellowship.'})
+    
+    return results['answer']#,results['context']
+
+#print(results["answer"])
+#print(results["context"])
