@@ -1,6 +1,4 @@
-def App():
-
-    from cli_bookapp import Book
+def App(book_object):
 
     from dotenv import load_dotenv
     load_dotenv(".venv/.env")
@@ -57,8 +55,8 @@ def App():
 
     #Getting user input and returning result
 
-    #results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini. Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
-    results = rag_chain.invoke({"input": f'Recommend 2 books about {Book.topic} and one about fellowship.'})
+    #results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {book_object.gen}, despre: {book_object.topic}, stil: {book_object.style}, în limba: {book_object.language}, cu aproximativ {book_object.pages} pagini. Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
+    results = rag_chain.invoke({"input": f'Recommend 2 books about {book_object.topic} and one about fellowship.'})
     
     return results['answer']#,results['context']
 
