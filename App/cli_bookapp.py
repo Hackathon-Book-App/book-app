@@ -3,40 +3,42 @@ import click
 from app import App
 
 class Book_properties:
-    def __init__(self,gen,topic,style,language,pages):
-        self.gen=gen
+    def __init__(self=None,topic=None,style=None,language=None,min_pages=None, max_pages=None):
         self.topic=topic
         self.style=style
         self.language=language
-        self.pages=pages
+        self.min_pages=min_pages
+        self.max_pages=max_pages
      
-Book=Book_properties('','','','',any)
+Book=Book_properties()
 
 @click.group()
 def cli():
-    click.echo("Welcome to BookApp! Începe acum să explorezi lumea cărților într-un mod nou!")
+    click.echo("Welcome to BookApp! Start exploring the book world in a new way!")
 
 @click.command()
 def search_books():
     # Interogari initiale
-    name = click.prompt("Cum te numești?")
-    click.echo(f"Salut, {name}! Ce vrei să afli nou ?")
-    click.echo('Apasa ENTER daca nu doresti sa adaugi o anumita proprietate.')
+    name = click.prompt("What is your name?")
+    click.echo(f"Hi {name}! What type of new and exciting books do you want to find?")
+    click.echo('\nPress ENTER if you don\'t want the specific property.')
     
     # Criterii de căutare
-    Book.gen = click.prompt('Introdu genul cărții ',default="",show_default=False) 
-    Book.topic = click.prompt('Despre ce este cartea',default='',show_default=False)
-    Book.style = click.prompt('Stilul în care este scrisă cartea',default='',show_default=False)
-    Book.language = click.prompt('Limba în care este scrisă cartea',default='',show_default=False)
-    Book.pages = click.prompt('Numărul aproximativ de pagini',type=int,default='400',show_default=False)
+    Book.topic = click.prompt('Topic, what the book shoud be about',default='[not specified]',show_default=False)
+    Book.style = click.prompt('Specific writing style',default='[not specified]',show_default=False)
+    Book.language = click.prompt('Book language',default='[not specified]',show_default=False)
+    Book.min_pages = click.prompt('Minimal page count',type=int,default='0',show_default=True)
+    Book.max_pages = click.prompt("Max book page count",default='10000', show_default=True)
 
-    click.echo(f"Căutare cărți cu genul: {Book.gen}, despre: {Book.topic}, stil: {Book.style}, în limba: {Book.language}, cu aproximativ {Book.pages} pagini.")
+    click.echo(f"Searching books about {Book.topic}, in {Book.language}, with min {Book.min_pages}, and max {Book.max_pages} pages, with {Book.style} writing style.")
 
     # Executare app.py
-    print(App(Book))
-    
+    results=App(Book)
+    print(results["answer"])
+    print(results["context"])
+
  
-    # de implementat
+    # TODO de implementat
 
     # Alegerea cărții
     #book_index = click.prompt('Alege cartea de la poziția', type=int)
