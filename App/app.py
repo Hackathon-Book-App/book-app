@@ -23,7 +23,7 @@ def App(book_object):
 
     #Instantiating LLM
 
-    llm = ChatOpenAI(model="gpt-4o")
+    llm = ChatOpenAI(model="gpt-3.5-turbo")
 
     from langchain_core.prompts import ChatPromptTemplate
     from langchain.chains.combine_documents import create_stuff_documents_chain
