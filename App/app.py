@@ -19,11 +19,11 @@ def App(book_object):
     from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
     vectorstore = Chroma(client=client, embedding_function=OpenAIEmbeddings())
-    retriever = vectorstore.as_retriever()
+    retriever = vectorstore.as_retriever(search_type='mmr',k=10)
 
     #Instantiating LLM
 
-    llm = ChatOpenAI(model="gpt-3.5-turbo")
+    llm = ChatOpenAI(model="gpt-4o")
 
     from langchain_core.prompts import ChatPromptTemplate
     from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -57,7 +57,7 @@ def App(book_object):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
     #Getting user input and returning result
-    user_input=f'''Recommend 2 books with the following properties: 
+    user_input=f'''Recommend 2 books with the following properties, in this order of importance: 
     1. topic: {book_object.topic},
     2. language: {book_object.language},
     3. writing style: {book_object.style},
