@@ -1,16 +1,9 @@
 import click
 
+from BookObject import BookClass
 from recommend_service import recommend_service
-
-class Book_properties:
-    def __init__(self=None,topic=None,style=None,language=None,min_pages=None, max_pages=None):
-        self.topic=topic
-        self.style=style
-        self.language=language
-        self.min_pages=min_pages
-        self.max_pages=max_pages
      
-Book=Book_properties()
+Book=BookClass()
 
 @click.group()
 def cli():
@@ -24,11 +17,11 @@ def search_books():
     click.echo('\nPress ENTER if you don\'t want the specific property.')
     
     # Criterii de căutare
-    Book.topic = click.prompt('Topic, what the book shoud be about',default='[not specified]',show_default=False)
-    Book.style = click.prompt('Specific writing style',default='[not specified]',show_default=False)
-    Book.language = click.prompt('Book language',default='[not specified]',show_default=False)
-    Book.min_pages = click.prompt('Minimal page count',default='0',show_default=True)
-    Book.max_pages = click.prompt("Max book page count",default='10000', show_default=True)
+    # Book.topic = click.prompt('Topic, what the book shoud be about',default='[not specified]',show_default=False)
+    # Book.style = click.prompt('Specific writing style',default='[not specified]',show_default=False)
+    # Book.language = click.prompt('Book language',default='[not specified]',show_default=False)
+    # Book.min_pages = click.prompt('Minimal page count',default='0',show_default=True)
+    # Book.max_pages = click.prompt("Max book page count",default='10000', show_default=True)
 
     click.echo(f"Searching books about {Book.topic}, in {Book.language}, with min {Book.min_pages}, and max {Book.max_pages} pages, with {Book.style} writing style.")
 

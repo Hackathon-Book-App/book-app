@@ -15,7 +15,7 @@ def recommend_service(book_object):
     from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
     vectorstore = Chroma(client=client, embedding_function=OpenAIEmbeddings())
-    retriever = vectorstore.as_retriever(search_type='mmr',k=10)
+    retriever = vectorstore.as_retriever(k=500)
 
     #Instantiating LLM
 
@@ -32,10 +32,10 @@ def recommend_service(book_object):
         # Use only the following pieces of information to recommend books.
         # If the answer is not in the provided information, say you don't know."""
         "You will be provided with a set of documents." 
-        "Your task is to answer the question using only the provided documents and" 
-        "to cite the passage(s) of the document used to answer the question."
-        "If the documents do not contain the information needed to answer the question"
-        "then simply write: 'Insufficient information.' If an answer to the question is provided," 
+        "Your task is to recommend 2 books using only the provided documents and the user preferences, and" 
+        "to cite the passage(s) of the document used for the recommendation."
+        "If the documents do not contain the information needed then simply write:"
+        "'Insufficient information.' If an answer to the question is provided," 
         'it must be annotated with a citation.'
         "{context}"
     )
@@ -53,12 +53,7 @@ def recommend_service(book_object):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
     #Getting user input and returning result
-    user_input=f'''Recommend 2 books with some the following properties:
-    1. topic: {book_object.topic},
-    2. language: {book_object.language},
-    3. writing style: {book_object.style},
-    4. maximum pages: {book_object.max_pages},
-    5. minimum pages: {book_object.min_pages}.''' 
+    user_input=f'''User preferences: {book_object.topic} topic, in {book_object.language} language, between {book_object.min_pages} and {book_object.max_pages} pages.''' 
     
     #results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {book_object.gen}, despre: {book_object.topic}, stil: {book_object.style}, în limba: {book_object.language}, cu aproximativ {book_object.pages} pagini. Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
     results = rag_chain.invoke({"input": user_input})
