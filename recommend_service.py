@@ -1,7 +1,4 @@
-def App(book_object):
-    # from dotenv import load_dotenv
-    # load_dotenv(".venv/.env")
-
+def recommend_service(book_object):
     #Initiating client (the one on RPi)
 
     import chromadb
@@ -56,7 +53,7 @@ def App(book_object):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
     #Getting user input and returning result
-    user_input=f'''Recommend 2 books with the following properties, in this order of importance: 
+    user_input=f'''Recommend 2 books with some the following properties:
     1. topic: {book_object.topic},
     2. language: {book_object.language},
     3. writing style: {book_object.style},

@@ -1,22 +1,21 @@
-from re import A
 from fastapi import FastAPI
+from pydantic import BaseModel
 
-from app import App
+from recommend_service import recommend_service
 
 
-app=FastAPI()
+class Book(BaseModel):
+    topic: str = "any"
+    style: str = "any"
+    language: str = "any"
+    min_pages: str = "any"
+    max_pages: str = "any"
 
-@app.get("/user")
-def user_auth(user_name: str = "raoul"):
 
-    #cumva sa primeasca username si parola si sa verifice in baza de date daca exista userul, daca e buna parola si sa intoarca o validare ca e buna sau nu
-    #sau daca nu exista sa intoarca ca nu, sa il promtuiasca ca nu are cont si daca vrea sa creeze si atunci sa creeze cu username si parola data
-    #sa returneze si subscriptia de care beneficiaza
+app = FastAPI()
 
-    return {"username": user_name}
 
-@app.get("/app")
-def app_query(object):
-
-    results=App(object)
-    return {"recommendation": results['answer']}
+@app.post("/recommend")
+def recommend_books(book: Book):
+    result = recommend_service(book)
+    return {'message': result['answer']}
