@@ -1,7 +1,6 @@
 def App(book_object):
-
-    from dotenv import load_dotenv
-    load_dotenv(".venv/.env")
+    # from dotenv import load_dotenv
+    # load_dotenv(".venv/.env")
 
     #Initiating client (the one on RPi)
 
