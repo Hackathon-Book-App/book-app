@@ -9,6 +9,6 @@ app = FastAPI()
 
 
 @app.post("/recommend")
-def recommend_books(book: BookClass):
+def recommend_books(book: Annotated[BookClass, Body(embed=True)]):
     result = recommend_service(book)
     return {'message': result['answer']}
