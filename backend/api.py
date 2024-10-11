@@ -1,10 +1,10 @@
 from typing import Annotated
 from fastapi import Body, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.BookClass import BookClass
-from backend.UserCreds import UserCreds
-from backend.auth_service import auth
-from backend.recommend_service import recommend_service
+from BookClass import BookClass
+from UserCreds import UserCreds
+from auth_service import auth
+from recommend_service import recommend_service
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware,allow_origins=['*'],allow_methods=["*"],allow_headers=["*"] )
