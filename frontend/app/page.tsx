@@ -9,8 +9,9 @@ export default function Home() {
     event.preventDefault() 
     
 
-    fetch('localhost:8000',{
+    fetch('http://localhost:8000/',{
       method:'POST',
+      headers:{"content-type":"application/json"},
       body: JSON.stringify(book_properties),
     }).then(response => response.json())
     .then(data =>{ setRecomandation(data)})
@@ -78,11 +79,11 @@ export default function Home() {
             onChange={handleLanguageChange}/>
           
           <p>Enter the minimum number of pages</p>
-          <input type="number" defaultValue="0"
+          <input type="text" defaultValue="0"
             onChange={handleMinPagechange}/>
 
           <p>Enter the maximum number of pages</p>
-          <input type="number" defaultValue="1000"
+          <input type="text" defaultValue="1000"
             onChange={handeOnMaxChange}/>
 
           <button type='submit'>Submit</button>
