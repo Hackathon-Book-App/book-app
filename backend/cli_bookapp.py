@@ -1,7 +1,7 @@
 import click
 
-from BookClass import BookClass
-from recommend_service import recommend_service
+from backend.BookClass import BookClass
+from backend.recommend_service import recommend_service
      
 Book=BookClass()
 

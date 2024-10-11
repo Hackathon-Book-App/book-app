@@ -1,4 +1,4 @@
-from UserCreds import UserCreds
+from backend.UserCreds import UserCreds
 
 
 def auth(user_creds: UserCreds):
