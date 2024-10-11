@@ -1,6 +1,6 @@
 import click
 
-from BookObject import BookClass
+from BookClass import BookClass
 from recommend_service import recommend_service
      
 Book=BookClass()
