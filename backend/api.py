@@ -1,4 +1,3 @@
-from typing import Annotated
 from fastapi import Body, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from BookClass import BookClass
@@ -23,4 +22,3 @@ def auth_user(user_creds: UserCreds):
 @app.get("/")
 def health():
     return "I am healthy"
-
