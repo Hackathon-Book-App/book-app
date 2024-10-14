@@ -1,6 +1,7 @@
 'use client'
 import { useState ,FormEvent} from "react"
 
+
 export default function Home() {
 
   async function onSubmit(event:FormEvent<HTMLFormElement>){
@@ -64,33 +65,39 @@ export default function Home() {
 
   return(
       <>
-        <h1>Wellcome to book app</h1>
-        <form onSubmit={onSubmit} >
-          <p>Enter the topic of the Book </p>
-          <input  type="text"  placeholder="topic here"
-            onChange={handleTopicChange} />
-          
-          <p>Enter the style of the book</p>
-          <input type="text" placeholder="style here"
-            onChange={handleStyleChange}/>
-          
-          <p>Enter the language here</p>
-          <input type="text" placeholder="language here"
-            onChange={handleLanguageChange}/>
-          
-          <p>Enter the minimum number of pages</p>
-          <input type="text" defaultValue="0"
-            onChange={handleMinPagechange}/>
+        
+        <h1 className=" font-mono pt-3 text-2xl flex h-14  flex justify-center bg-blue-400 text-white font-bold ">
+          Welcome to book app</h1>
+        <div className="w-30 border-blue-300 rounded-full border-8 bg-blue-100 h100 flex justify-center ">
+          <form  onSubmit={onSubmit} >
+            <p >Enter the topic of the Book </p>
+            <input 
+              type="text"  placeholder="topic here"
+              onChange={handleTopicChange} />
+            
+            <p>Enter the style of the book</p>
+            <input type="text" placeholder="style here"
+              onChange={handleStyleChange}/>
+            
+            <p>Enter the language here</p>
+            <input type="text" placeholder="language here"
+              onChange={handleLanguageChange}/>
+            
+            <p>Enter the minimum number of pages</p>
+            <input type="text" defaultValue="0"
+              onChange={handleMinPagechange}/>
 
-          <p>Enter the maximum number of pages</p>
-          <input type="text" defaultValue="1000"
-            onChange={handeOnMaxChange}/>
+            <p>Enter the maximum number of pages</p>
+            <input type="text" defaultValue="1000"
+              onChange={handeOnMaxChange}/>
+            <p> </p>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white 
+            font-bold py-2 px-4 rounded" type='submit'>Submit</button>
+            
+            <p>Response: {recomandation.message}</p>
 
-          <button type='submit'>Submit</button>
-          
-          <p>Response: {recomandation.message}</p>
-
-        </form>
+          </form>
+        </div>
       </>
 
   )
