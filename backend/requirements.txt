@@ -3,7 +3,6 @@ langchain_chroma
 langchain_openai
 langchain-openai
 click
-google-api-python-client 
-google-auth-httplib2 
-google-auth-oauthlib
 fastapi[standard]
+pyjwt
+passlib[bcrypt]
