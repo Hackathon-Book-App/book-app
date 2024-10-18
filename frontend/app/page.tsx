@@ -1,5 +1,6 @@
 'use client'
 import { useState ,FormEvent} from "react"
+import Login from "./components/login"
 
 
 export default function Home() {
@@ -55,7 +56,7 @@ export default function Home() {
       min_pages:e.target.value
   })
   }
-  function handeOnMaxChange(e: { target: { value: any } }){
+  function handleOnMaxChange(e: { target: { value: any } }){
     setBookProperties({
       ... book_properties,
       max_pages:e.target.value
@@ -65,16 +66,21 @@ export default function Home() {
 
   return(
       <>
-        
-        <h1 className=" font-mono pt-3 text-2xl flex h-14  flex justify-center bg-blue-400 text-white font-bold ">
-          Welcome to book app</h1>
-        <div className="w-30 border-blue-300 rounded-full border-8 bg-blue-100 h100 flex justify-center ">
+        <div className=" bg-blue-500 text-white flex items-center "> 
+          <div className=" font-mono font-bold text-2xl  ">
+            <h1 >Welcome to book app</h1>
+          </div>
+          <div className="bg-blue-300 flex justify-end">
+            <Login/>
+          </div>
+        </div>
+
+        <div className="w-30 drop-shadow-2xl border-blue-500 rounded-full border-8 bg-blue-100 h100 flex justify-center ">
           <form  onSubmit={onSubmit} >
             <p >Enter the topic of the Book </p>
             <input 
               type="text"  placeholder="topic here"
               onChange={handleTopicChange} />
-            
             <p>Enter the style of the book</p>
             <input type="text" placeholder="style here"
               onChange={handleStyleChange}/>
@@ -89,13 +95,13 @@ export default function Home() {
 
             <p>Enter the maximum number of pages</p>
             <input type="text" defaultValue="1000"
-              onChange={handeOnMaxChange}/>
+              onChange={handleOnMaxChange}/>
             <p> </p>
             <button className="bg-blue-500 hover:bg-blue-700 text-white 
-            font-bold py-2 px-4 rounded" type='submit'>Submit</button>
+            border-radius
+            font-bold py-2 px-4 rounded-full" type='submit'>Submit</button>
             
             <p>Response: {recomandation.message}</p>
-
           </form>
         </div>
       </>
