@@ -58,31 +58,35 @@ export default function SearchBooks(){
     }
 
     return(
-        <form  onSubmit={onSubmit} >
-            <p >Enter the topic of the Book </p>
-            <input 
-                type="text"  placeholder="topic here"
-                onChange={handleTopicChange} />
-            <p>Enter the style of the book</p>
-            <input type="text" placeholder="style here"
-                onChange={handleStyleChange}/>
-            
-            <p>Enter the language here</p>
-            <input type="text" placeholder="language here"
-                onChange={handleLanguageChange}/>
-            
-            <p>Enter the minimum number of pages</p>
-            <input type="text" defaultValue="0"
-                onChange={handleMinPagechange}/>
+        <div className="w-30 drop-shadow-2xl border-blue-500 
+        rounded-3xl border-8 bg-blue-100 h-auto w-auto 
+        flex justify-center ">
+            <form  onSubmit={onSubmit} >
+                <p >Enter the topic of the Book </p>
+                <input 
+                    type="text"  placeholder="topic here"
+                    onChange={handleTopicChange} />
+                <p>Enter the style of the book</p>
+                <input type="text" placeholder="style here"
+                    onChange={handleStyleChange}/>
+                
+                <p>Enter the language here</p>
+                <input type="text" placeholder="language here"
+                    onChange={handleLanguageChange}/>
+                
+                <p>Enter the minimum number of pages</p>
+                <input type="text" defaultValue="0"
+                    onChange={handleMinPagechange}/>
 
-            <p>Enter the maximum number of pages</p>
-            <input type="text" defaultValue="1000"
-                onChange={handleOnMaxChange}/>
-            <p> </p>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white 
-                border-radius font-bold py-2 px-4 rounded-full"
-                type='submit'>Submit</button>  
-            <p>Response: {recomandation.message}</p>
-        </form>
+                <p>Enter the maximum number of pages</p>
+                <input type="text" defaultValue="1000"
+                    onChange={handleOnMaxChange}/>
+                <p> </p>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white 
+                    border-radius font-bold py-2 px-4 rounded-full"
+                    type='submit'>Submit</button>  
+                <p>Response: {recomandation.message}</p>
+            </form>
+        </div>
     )
 }
