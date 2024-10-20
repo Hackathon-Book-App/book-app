@@ -6,3 +6,5 @@ click
 fastapi[standard]
 pyjwt
 passlib[bcrypt]
+sqlmodel
+PyMySQL

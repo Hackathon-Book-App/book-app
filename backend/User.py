@@ -1,11 +1,13 @@
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import jwt
 from jwt.exceptions import InvalidTokenError
 from pydantic import BaseModel
 from passlib.context import CryptContext
+
+
 
 fake_users_db = {
     "johndoe": {
@@ -98,3 +100,12 @@ class UserAuth:
         if current_user.disabled:
             raise HTTPException(status_code=400, detail="Inactive user")
         return current_user
+    
+    async def sign_in(form_data: OAuth2PasswordRequestForm):
+        hashed_password=UserAuth.get_password_hash(form_data.password)
+        #Add to db
+        access_token=UserAuth.create_access_token(
+            data={"sub":form_data.username},expires_delta=timedelta(minutes=30)
+        )
+        #TODO Token function or smth, sa nu mai fie in ambele fisiere
+        # return Token(access_token,"bearer")

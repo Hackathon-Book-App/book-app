@@ -16,8 +16,7 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
-app.add_middleware(CORSMiddleware, allow_origins=[
-                   '*'], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=["*"], allow_headers=["*"])
 
 
 @app.post("/")
@@ -31,6 +30,11 @@ def recommend_books(book_properties: BookClass):
 def health():
     return "I am healthy"
 
+@app.post("/")
+def sign_in(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
+) -> Token:
+    return UserAuth.sign_in(form_data)
 
 @app.post("/token")
 async def login_for_access_token(
