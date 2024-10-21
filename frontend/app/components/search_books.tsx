@@ -59,8 +59,9 @@ export default function SearchBooks(){
 
     return(
         <div className="w-30 drop-shadow-2xl border-blue-500 
-        rounded-3xl border-8 bg-blue-100 h-auto w-auto 
-        flex justify-center ">
+                        rounded-3xl border-8 bg-blue-100 h-auto w-80
+                        flex items-center justify-center
+                         ">
             <form  onSubmit={onSubmit} >
                 <p >Enter the topic of the Book </p>
                 <input 
