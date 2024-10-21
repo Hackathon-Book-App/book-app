@@ -1,7 +1,5 @@
 import { FormEvent, useState } from "react"
 
-const is_logged=false
-
 export default function Login(){
 
     const [user_credentials,setUsercredentials]=useState({

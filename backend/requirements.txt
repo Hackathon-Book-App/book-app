@@ -5,6 +5,6 @@ langchain-openai
 click
 fastapi[standard]
 pyjwt
-passlib[bcrypt]
+passlib[bcrypt==4.0.1]
 sqlmodel
 PyMySQL
