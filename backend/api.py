@@ -8,7 +8,7 @@ from BookClass import BookClass
 from User import User, UserAuth, UserInDB
 from recommend_service import recommend_service
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 1
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 app = FastAPI()
 
@@ -30,13 +30,13 @@ def recommend_books(book_properties: BookClass):
 def health():
     return "I am healthy"
 
-@app.post("/")
+@app.post("/signup")
 def sign_in(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ) -> Token:
     return UserAuth.sign_in(form_data)
 
-@app.post("/token")
+@app.post("/login")
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Token:
