@@ -10,7 +10,7 @@ export default function SearchBooks(){
           headers:{"content-type":"application/json"},
           body: JSON.stringify(book_properties),
         }).then(response => response.json())
-        .then(data =>{ setRecomandation(data)})
+        .then(data =>{setRecomandation(data)})
         .catch(error => setRecomandation({message:error.toString()}))
     }
 

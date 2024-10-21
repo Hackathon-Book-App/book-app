@@ -22,22 +22,40 @@ export default function Login(){
 
     async function checkAccount(event:FormEvent<HTMLFormElement>){
         event.preventDefault()
+
         const urlencoded = new URLSearchParams();
         urlencoded.append("username", user_credentials.username);
         urlencoded.append("password", user_credentials.password);
-
+      
         fetch('http://localhost:8000/login',{
             method:'POST',
-            headers:{"content-type":"application/x-www-form-urlencoded"},
+            headers:{"content-type":"application/x-www-form-urlencoded",
+            },
             body: urlencoded,
-        }).then(response =>response.json())
-        .then(data => setIsLogged(data))
+        }).then(response =>{
+            if (!response.ok){
+                throw new Error('Failed to login');
+            }
+            return response.json();
+        })
+        .then(data=>{
+            const accessToken=data.access_token;
+            localStorage.setItem('Access Token:',accessToken)
+
+            const tokenType=data.token_type;
+            localStorage.setItem('Token Type:',tokenType)
+            
+            setIsLogged({
+                message:'yupi yupi yey merge loginu beei'
+            })
+     })
         .catch(error => setIsLogged({message:error.toString()}))
     }
-
+    
     const [is_logged,setIsLogged]=useState({
-        message:""
-    })
+            message:""
+        })
+        
 
     return (  
         <div className="w-96 flex justify-self-end text-black ">  
@@ -52,4 +70,8 @@ export default function Login(){
             </form>
         </div>  
     )
+}
+
+function succesFunc(value: any) {
+    
 }
