@@ -55,10 +55,9 @@ export default function Login(){
     const [is_logged,setIsLogged]=useState({
             message:""
         })
-        
 
     return (  
-        <div className="w-96 flex justify-self-end text-black ">  
+        <div className="w-52 flex justify-self-end text-black ">  
             <form onSubmit={checkAccount}>
                 <input type="text" placeholder='username'
                     onChange={handleUsernameChange}/>
@@ -66,12 +65,9 @@ export default function Login(){
                     onChange={handlePasswordChange}/>
                 <button className='bg-yellow-400 px-3 rounded-full text-white' 
                     type="submit">Login</button>
-                <p>message: {is_logged.message}</p>
+                <p>{is_logged.message}</p>
             </form>
         </div>  
     )
 }
 
-function succesFunc(value: any) {
-    
-}
