@@ -1,23 +1,12 @@
+from repository import Users_Test
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 import jwt
 from jwt.exceptions import InvalidTokenError
 from pydantic import BaseModel
 from passlib.context import CryptContext
-
-
-
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    }
-}
 
 # to get a string like this run:
 # openssl rand -hex 32
@@ -27,17 +16,6 @@ ALGORITHM = "HS256"
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
-
-class User(BaseModel):
-    username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
-
-
-class UserInDB(User):
-    hashed_password: str
 
 
 class TokenData(BaseModel):
@@ -51,13 +29,8 @@ class UserAuth:
     def get_password_hash(password):
         return pwd_context.hash(password)
 
-    def get_user(username: str, db=fake_users_db):
-        if username in db:
-            user_dict = db[username]
-            return UserInDB(**user_dict)
-
-    def authenticate_user(username: str, password: str, fake_db=fake_users_db):
-        user: UserInDB = UserAuth.get_user(username, fake_db)
+    def authenticate_user(username: str, password: str):
+        user: Users_Test | None = Users_Test.get_user(username)
         if not user:
             return False
         if not UserAuth.verify_password(password, user.hashed_password):
@@ -88,24 +61,15 @@ class UserAuth:
             token_data = TokenData(username=username)
         except InvalidTokenError:
             raise credentials_exception
-        user = UserAuth.get_user(
-            username=token_data.username, db=fake_users_db)
+        user: Users_Test | None = Users_Test.get_user(
+            username=token_data.username)
         if user is None:
             raise credentials_exception
         return user
 
     async def get_current_active_user(
-        current_user: Annotated[User, Depends(get_current_user)],
+        current_user: Annotated[Users_Test, Depends(get_current_user)],
     ):
         if current_user.disabled:
             raise HTTPException(status_code=400, detail="Inactive user")
         return current_user
-    
-    async def sign_in(form_data: OAuth2PasswordRequestForm):
-        hashed_password=UserAuth.get_password_hash(form_data.password)
-        #Add to db
-        access_token=UserAuth.create_access_token(
-            data={"sub":form_data.username},expires_delta=timedelta(minutes=30)
-        )
-        #TODO Token function or smth, sa nu mai fie in ambele fisiere
-        # return Token(access_token,"bearer")
