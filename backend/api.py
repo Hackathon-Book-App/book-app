@@ -28,7 +28,7 @@ def health():
 
 
 @app.post("/")
-def recommend_books(book_properties: BookClass):
+def recommend_books(book_properties: Annotated[BookClass, UserAuth.get_current_user]):
     print(book_properties)
     result = recommend_service(book_properties)
     return {'message': result['answer']}
