@@ -4,10 +4,15 @@ export default function SearchBooks(){
     
     async function onSubmit(event:FormEvent<HTMLFormElement>){
         event.preventDefault() 
+
+        const tokenType = localStorage.getItem('Token Type');
+        const accessToken = localStorage.getItem('Access Token');
   
         fetch('http://localhost:8000/',{
           method:'POST',
-          headers:{"content-type":"application/json"},
+          headers:{"content-type":"application/json",
+                    'Authorization':'${tokenType} ${accessToken}'
+          },
           body: JSON.stringify(book_properties),
         }).then(response => response.json())
         .then(data =>{setRecomandation(data)})

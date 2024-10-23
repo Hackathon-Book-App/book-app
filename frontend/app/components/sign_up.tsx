@@ -78,7 +78,7 @@ export default function SignIn(){
                 <p>Username:</p>
                 <input type="text" placeholder="username"
                     onChange={handleUsernameChange}/>
-
+    
                 {/*             
                 <p>Fullname:</p>
                 <input type="text" placeholder="Your Name"
