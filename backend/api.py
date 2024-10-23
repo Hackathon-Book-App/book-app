@@ -28,14 +28,14 @@ def health():
 
 
 @app.post("/")
-def recommend_books(book_properties: Annotated[BookClass, UserAuth.get_current_user]):
+def recommend_books(book_properties: BookClass):
     print(book_properties)
     result = recommend_service(book_properties)
     return {'message': result['answer']}
 
 
 @app.post("/signup")
-def sign_in(
+def sign_up(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ):
     user=Users_Test.get_user(form_data.username)
@@ -64,17 +64,3 @@ async def login_for_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
-
-
-@app.get("/users/me/", response_model=Users_Test)
-async def read_users_me(
-    current_user: Annotated[Users_Test, Depends(UserAuth.get_current_active_user)],
-):
-    return current_user
-
-
-@app.get("/users/me/items/")
-async def read_own_items(
-    current_user: Annotated[Users_Test, Depends(UserAuth.get_current_active_user)],
-):
-    return [{"item_id": "Foo", "owner": current_user.username}]

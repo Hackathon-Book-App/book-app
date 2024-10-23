@@ -2,7 +2,7 @@ from typing import Annotated
 from fastapi import Depends
 from sqlmodel import Field, SQLModel, Session, create_engine, select
 
-ngrok_adress = "0.tcp.eu.ngrok.io:13777"
+ngrok_adress = "6.tcp.eu.ngrok.io:16453"
 mysql_name = "db_users"
 mysql_url = f"mysql+pymysql://coavr:0000@{ngrok_adress}/{mysql_name}"
 
@@ -13,7 +13,7 @@ engine = create_engine(mysql_url, echo=True)
 # def get_session():
 #     with Session(engine) as session:
 #         yield session
-
+ 
 # SessionDep = Annotated[Session, Depends(get_session)]
 
 session=Session(engine)
