@@ -1,26 +1,24 @@
 from datetime import timedelta
+import shutil
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
-from pydantic import BaseModel
 
-from BookClass import BookClass
+from Models import BookClass, Token
 from auth_service import UserAuth
+from recommend_service import image_service, text_service
 from repository import Users_Test
-from recommend_service import recommend_service
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=["*"], allow_headers=["*"])
+
 
 @app.get("/")
 def health():
@@ -30,7 +28,20 @@ def health():
 @app.post("/")
 def recommend_books(book_properties: BookClass):
     print(book_properties)
-    result = recommend_service(book_properties)
+    result = text_service(book_properties)
+    return {'message': result['answer']}
+
+
+@app.post("/image")
+def get_image_recommandation(image: UploadFile):
+
+    image_path = "image.jpg"
+
+    with open(image_path, "wb") as f:
+        shutil.copyfileobj(image.file, f)
+
+    result = image_service(image_path)
+
     return {'message': result['answer']}
 
 
@@ -38,10 +49,11 @@ def recommend_books(book_properties: BookClass):
 def sign_up(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ):
-    user=Users_Test.get_user(form_data.username)
+    user = Users_Test.get_user(form_data.username)
     if not user:
-        hashed_password=UserAuth.get_password_hash(form_data.password)
-        user = Users_Test(username=form_data.username, hashed_password=hashed_password)
+        hashed_password = UserAuth.get_password_hash(form_data.password)
+        user = Users_Test(username=form_data.username,
+                          hashed_password=hashed_password)
         user.create_users()
         return {'message': 'Signup succesful'}
     return {'message': 'User allready exists, please log in!'}

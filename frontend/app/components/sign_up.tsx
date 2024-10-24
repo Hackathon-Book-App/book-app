@@ -8,6 +8,7 @@ export default function SignIn(){
         const urlencoded=new URLSearchParams
         urlencoded.append("username",user_data.username)
         urlencoded.append("password",user_data.password)
+        console.log(user_data.password)
         
 
         fetch('http://localhost:8000/signup',{
@@ -22,7 +23,7 @@ export default function SignIn(){
         })
         .then(data =>{
             setSignUpRespone({
-                message_from_db:"ti ai facut cont beei"
+                message_from_db:"SignUp succesfully"
             })
         })
         .catch(error => setSignUpRespone({message_from_db:error.toString()}))
@@ -70,7 +71,7 @@ export default function SignIn(){
     } 
  
     return(
-        <div className="border-blue-500 bg-blue-100 border-8 rounded-3xl flex items-center justify-center 
+        <div className="border-blue-950 bg-blue-50 border-8 rounded-3xl flex items-center justify-center 
                             w-80 h-auto">
             <form onSubmit={onUserDataSubmit}>
                 <h1>Sign Up</h1>
@@ -94,7 +95,7 @@ export default function SignIn(){
                     onChange={handlePasswordChange}/>
                 
                 <p> </p>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white 
+                <button className="bg-yellow-400 hover:bg-blue-700 text-white 
                         border-radius font-bold py-2 px-4 rounded-full" 
                         type="submit">Sign Up
                 </button> 

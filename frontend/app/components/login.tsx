@@ -46,7 +46,7 @@ export default function Login(){
             localStorage.setItem('Token Type:',tokenType)
             
             setIsLogged({
-                message:'yupi yupi yey merge loginu beei'
+                message:'Login Succesfully'
             })
      })
         .catch(error => setIsLogged({message:error.toString()}))
@@ -63,9 +63,9 @@ export default function Login(){
                     onChange={handleUsernameChange}/>
                 <input type="password" placeholder='password'
                     onChange={handlePasswordChange}/>
-                <button className='bg-yellow-400 px-3 rounded-full text-white' 
+                <button className='bg-yellow-400 px-4 py-2 rounded-full text-white' 
                     type="submit">Login</button>
-                <p>{is_logged.message}</p>
+                <p className="text-white">{is_logged.message}</p>
             </form>
         </div>  
     )
