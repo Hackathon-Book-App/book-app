@@ -18,19 +18,23 @@ export default function UploadImage() {
         const user_data=new FormData()
         user_data.append('image',image)
 
-
-        fetch('http://localhost:8000/',{
+        fetch('http://localhost:8000/image',{
             method:'POST',
-            headers:{'content-type':'multipart/form-data'},
             body:user_data
         })
-        .then(response=>response.json())
-        .then(data=>{setMessage(data)})
+        .then(response =>{
+            if (!response.ok){
+                throw new Error('Failed send');
+            }
+            return response.json();
+        })
+        .then(data=>{console.debug(data)})
         .catch(error=>setMessage(error.toString()))
     }
 
     const handleFileChange = (event:any) => {
         setImage(event.target.files[0]);
+        console.debug("image"+image)
     }
 
     return (  

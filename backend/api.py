@@ -1,7 +1,7 @@
 from datetime import timedelta
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
@@ -33,6 +33,10 @@ def recommend_books(book_properties: BookClass):
     result = recommend_service(book_properties)
     return {'message': result['answer']}
 
+
+@app.post("/image")
+def get_image_recommandation(file:bytes):
+    return { 'message':'ok'}
 
 @app.post("/signup")
 def sign_up(
