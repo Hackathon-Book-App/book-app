@@ -11,4 +11,4 @@ sqlmodel
 PyMySQL
 google-cloud-vision
 pillow
-protobuf=3.20.0
+protobuf==3.20.0
