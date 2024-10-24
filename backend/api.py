@@ -1,8 +1,10 @@
 from datetime import timedelta
 import io
+import shutil
 from typing import Annotated
 from PIL import Image
 
+from aiohttp import BytesIOPayload
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
@@ -38,13 +40,16 @@ def recommend_books(book_properties: BookClass):
 
 
 @app.post("/image")
-def get_image_recommandation(file:UploadFile):
+def get_image_recommandation(image:UploadFile):
     
     image_path="image.jpg"
-    image_stream = io.BytesIO(file)
-    image = Image.open(image_stream)
 
-    image.save(image_path, format='JPG')
+    with open(image_path, "wb") as f:
+        shutil.copyfileobj(image.file, f)
+    # image_stream = io.BytesIO(image)
+    # # open(image_path,'x')
+    # image = Image.open(image_stream)
+    # image.save(image_path, format='JPG')
     
     result=image_service(image_path)
 

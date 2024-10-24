@@ -73,7 +73,10 @@ def image_service(path):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
     #Getting user input and returning result
-    user_input=image_input
+
+    user_input=""
+    for item in image_input:
+        user_input += item
     
     #results = rag_chain.invoke({"input": f'Căuta cărți cu o parte din urmatoarele criterii genul: {book_object.gen}, despre: {book_object.topic}, stil: {book_object.style}, în limba: {book_object.language}, cu aproximativ {book_object.pages} pagini. Tine cont ca nu trebuie sa indeplineasca exact criteriile.'})
     results = rag_chain.invoke({"input": user_input})
