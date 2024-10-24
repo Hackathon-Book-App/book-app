@@ -27,7 +27,7 @@ export default function UploadImage() {
             }
             return response.json();
         })
-        .then(data=>{console.debug(data)})
+        .then(data=>{setMessage(data.message)})
         .catch(error=>setMessage(error.toString()))
     }
 
@@ -48,8 +48,8 @@ export default function UploadImage() {
                     border-radius font-bold py-2 px-6 rounded-full">
                     Get Recommandation
                 </button>
-                <p>Response:{message}</p>
-            </form>
+                <p>Response: {message} </p>
+            </form> 
         </div>
   )
 }   
