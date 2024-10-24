@@ -1,13 +1,11 @@
 import { FormEvent, useState } from 'react';
-import Image from 'next/image';
-import carti from '@/app/CartiRaul.jpg'
 
 export default function UploadImage() {
 
-    const [image, setImage] = useState(null);
+    const [image, setImage] =useState(null);
     const [message, setMessage] = useState("");
 
-    async function onSubmit(event:FormEvent<HTMLFormElement>){
+    async function handleImageSubmit(event:FormEvent<HTMLFormElement>){
         event.preventDefault()
 
         if(!image){
@@ -18,6 +16,7 @@ export default function UploadImage() {
         const user_data=new FormData()
         user_data.append('image',image)
 
+        console.debug('imagesadkljf'+image)
         fetch('http://localhost:8000/image',{
             method:'POST',
             body:user_data
@@ -32,7 +31,7 @@ export default function UploadImage() {
         .catch(error=>setMessage(error.toString()))
     }
 
-    const handleFileChange = (event:any) => {
+    const handleImageChange = (event:any) => {
         setImage(event.target.files[0]);
         console.debug("image"+image)
     }
@@ -41,9 +40,9 @@ export default function UploadImage() {
         <div className="w-30 drop-shadow-2xl border-blue-500 
                         rounded-3xl border-8 bg-blue-100 h-auto w-80
                         flex items-center justify-center">
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleImageSubmit}>
                 <h2>Upload an Image</h2>
-                <input type="file" onChange={handleFileChange} accept="image/*"/>
+                <input type="file" onChange={handleImageChange} accept="image/*"/>
                 <button type="submit"
                     className="bg-yellow-400 hover:bg-blue-700 text-white 
                     border-radius font-bold py-2 px-6 rounded-full">
