@@ -1,3 +1,4 @@
+from Models import TokenData
 from repository import Users_Test
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
@@ -5,7 +6,6 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 import jwt
 from jwt.exceptions import InvalidTokenError
-from pydantic import BaseModel
 from passlib.context import CryptContext
 
 # to get a string like this run:
@@ -16,10 +16,6 @@ ALGORITHM = "HS256"
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
-
-
-class TokenData(BaseModel):
-    username: str | None = None
 
 
 class UserAuth:
@@ -66,10 +62,3 @@ class UserAuth:
         if user is None:
             raise credentials_exception
         return user
-
-    async def get_current_active_user(
-        current_user: Annotated[Users_Test, Depends(get_current_user)],
-    ):
-        if current_user.disabled:
-            raise HTTPException(status_code=400, detail="Inactive user")
-        return current_user

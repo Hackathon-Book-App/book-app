@@ -1,31 +1,24 @@
 from datetime import timedelta
-import io
 import shutil
 from typing import Annotated
-from PIL import Image
 
-from aiohttp import BytesIOPayload
-from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
+from fastapi import Depends, FastAPI, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 
-from pydantic import BaseModel
 
-from BookClass import BookClass
+from Models import BookClass, Token
 from auth_service import UserAuth
-from image_service import image_service
+from recommend_service import image_service, text_service
 from repository import Users_Test
-from recommend_service import recommend_service
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=["*"], allow_headers=["*"])
+
 
 @app.get("/")
 def health():
@@ -35,34 +28,32 @@ def health():
 @app.post("/")
 def recommend_books(book_properties: BookClass):
     print(book_properties)
-    result = recommend_service(book_properties)
+    result = text_service(book_properties)
     return {'message': result['answer']}
 
 
 @app.post("/image")
-def get_image_recommandation(image:UploadFile):
-    
-    image_path="image.jpg"
+def get_image_recommandation(image: UploadFile):
+
+    image_path = "image.jpg"
 
     with open(image_path, "wb") as f:
         shutil.copyfileobj(image.file, f)
-    # image_stream = io.BytesIO(image)
-    # # open(image_path,'x')
-    # image = Image.open(image_stream)
-    # image.save(image_path, format='JPG')
-    
-    result=image_service(image_path)
+
+    result = image_service(image_path)
 
     return {'message': result['answer']}
+
 
 @app.post("/signup")
 def sign_up(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ):
-    user=Users_Test.get_user(form_data.username)
+    user = Users_Test.get_user(form_data.username)
     if not user:
-        hashed_password=UserAuth.get_password_hash(form_data.password)
-        user = Users_Test(username=form_data.username, hashed_password=hashed_password)
+        hashed_password = UserAuth.get_password_hash(form_data.password)
+        user = Users_Test(username=form_data.username,
+                          hashed_password=hashed_password)
         user.create_users()
         return {'message': 'Signup succesful'}
     return {'message': 'User allready exists, please log in!'}
