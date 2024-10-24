@@ -1,5 +1,7 @@
 from datetime import timedelta
+import io
 from typing import Annotated
+from PIL import Image
 
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,6 +11,7 @@ from pydantic import BaseModel
 
 from BookClass import BookClass
 from auth_service import UserAuth
+from image_service import image_service
 from repository import Users_Test
 from recommend_service import recommend_service
 
@@ -36,7 +39,16 @@ def recommend_books(book_properties: BookClass):
 
 @app.post("/image")
 def get_image_recommandation(file:bytes):
-    return { 'message':'ok'}
+    
+    image_path="image.jpg"
+    image_stream = io.BytesIO(file)
+    image = Image.open(image_stream)
+
+    image.save(image_path, format='JPG')
+    
+    result=image_service(image_path)
+
+    return {'message': result['answer']}
 
 @app.post("/signup")
 def sign_up(
