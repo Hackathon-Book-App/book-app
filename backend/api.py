@@ -38,7 +38,7 @@ def recommend_books(book_properties: BookClass):
 
 
 @app.post("/image")
-def get_image_recommandation(file:bytes):
+def get_image_recommandation(file:UploadFile):
     
     image_path="image.jpg"
     image_stream = io.BytesIO(file)
