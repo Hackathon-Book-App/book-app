@@ -11,7 +11,7 @@ export default function SearchBooks(){
         fetch('http://localhost:8000/',{
           method:'POST',
           headers:{"content-type":"application/json",
-                    'Authorization':'${tokenType} ${accessToken}'
+                    'Authorization':tokenType??""+accessToken??""
           },
           body: JSON.stringify(book_properties),
         }).then(response => response.json())
@@ -63,8 +63,8 @@ export default function SearchBooks(){
     }
 
     return(
-        <div className="w-30 drop-shadow-2xl border-blue-500 
-                        rounded-3xl border-8 bg-blue-100 h-auto w-80
+        <div className="w-30 drop-shadow-2xl border-blue-950 
+                        rounded-3xl border-8 bg-blue-50 h-auto w-80
                         flex items-center justify-center">
             <form  onSubmit={onSubmit} >
                 <p >Enter the topic of the Book </p>
@@ -87,7 +87,7 @@ export default function SearchBooks(){
                 <input type="text" defaultValue="1000"
                     onChange={handleOnMaxChange}/>
                 <p> </p>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white 
+                <button className="bg-yellow-400 hover:bg-blue-700 text-white 
                     border-radius font-bold py-2 px-4 rounded-full"
                     type='submit'>Submit</button>  
                 <p>Response: {recomandation.message}</p>

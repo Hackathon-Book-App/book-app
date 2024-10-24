@@ -37,8 +37,8 @@ export default function UploadImage() {
     }
 
     return (  
-        <div className="w-30 drop-shadow-2xl border-blue-500 
-                        rounded-3xl border-8 bg-blue-100 h-auto w-80
+        <div className="w-30 drop-shadow-2xl border-blue-950 
+                        rounded-3xl border-8 bg-blue-50 h-auto w-80
                         flex items-center justify-center">
             <form onSubmit={handleImageSubmit}>
                 <h2>Upload an Image</h2>

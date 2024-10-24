@@ -6,11 +6,15 @@ import GetImage from "./components/get_image";
 export default function Home() {
     return(
         <>
+        
             <Header/>
             
-            <SearchBooks/>
+            <div className="flex items-center justify-center">
+                <SearchBooks/>
 
-            <GetImage/>
+                <GetImage/>
+            </div>        
         </>
+
     )
 }
