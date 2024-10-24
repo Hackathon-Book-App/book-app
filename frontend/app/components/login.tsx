@@ -46,7 +46,7 @@ export default function Login(){
             localStorage.setItem('Token Type:',tokenType)
             
             setIsLogged({
-                message:'You are logged'
+                message:'Login Succesfully'
             })
      })
         .catch(error => setIsLogged({message:error.toString()}))
@@ -65,7 +65,7 @@ export default function Login(){
                     onChange={handlePasswordChange}/>
                 <button className='bg-yellow-400 px-4 py-2 rounded-full text-white' 
                     type="submit">Login</button>
-                <p>{is_logged.message}</p>
+                <p className="text-white">{is_logged.message}</p>
             </form>
         </div>  
     )
