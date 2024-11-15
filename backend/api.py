@@ -11,7 +11,7 @@ from sqlalchemy import null
 from Models import BookClass, Token
 from auth_service import UserAuth
 from recommend_service import image_service, text_service
-from repository import Users_Test
+from sql_test import Users_Test
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
