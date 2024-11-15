@@ -2,9 +2,13 @@ from sqlmodel import Field, SQLModel, Session, create_engine, select
 from datetime import datetime
 from typing import Optional
 
-ngrok_adress = "7.tcp.eu.ngrok.io:18138"
+#ngrok_adress = "7.tcp.eu.ngrok.io:18138"
+#mysql_name = "db_users"
+#mysql_url = f"mysql+pymysql://coavr:0000@{ngrok_adress}/{mysql_name}"
+
+ngrok_adress = "localhost:3306"
 mysql_name = "db_users"
-mysql_url = f"mysql+pymysql://coavr:0000@{ngrok_adress}/{mysql_name}"
+mysql_url = f"mysql+pymysql://root:<password>@{ngrok_adress}/{mysql_name}"
 
 
 engine = create_engine(mysql_url, echo=True)
@@ -34,7 +38,7 @@ class books(SQLModel, table=True):
     title: str = Field (max_length=255)
     author: str = Field (max_length=255)
     publisher: str = Field (max_length=255)
-    pagecount: Optional[str] = Field (max_length=45)
+    pagecount: Optional[str] = Field (default=None)
     category: str = Field (max_length=100)
 
 #creating a class for user_book links

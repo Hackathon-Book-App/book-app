@@ -6,10 +6,10 @@ from Models import BookClass
 
 #client.host="https://widely-proven-bobcat.ngrok-free.app"
 #client.port=8000
-#client.host="127.0. 0.1"
+#client.host="127.0.0.1"
 #client.port=8000
 
-client=chromadb.HttpClient(host="https://widely-proven-bobcat.ngrok-free.app",port=8000)
+client=chromadb.HttpClient(host="127.0.0.1",port=7000)
 
 
 # Instantiating vectorstore from DB and creating retriever
