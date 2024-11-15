@@ -1,6 +1,6 @@
 from sqlmodel import Field, SQLModel, Session, create_engine, select
 
-ngrok_adress = "2.tcp.eu.ngrok.io:18795"
+ngrok_adress = "7.tcp.eu.ngrok.io:18138"
 mysql_name = "db_users"
 mysql_url = f"mysql+pymysql://coavr:0000@{ngrok_adress}/{mysql_name}"
 

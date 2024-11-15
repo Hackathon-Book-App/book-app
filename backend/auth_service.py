@@ -43,7 +43,7 @@ class UserAuth:
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         return encoded_jwt
 
-    async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+    def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         credentials_exception = HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
