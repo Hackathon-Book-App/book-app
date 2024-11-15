@@ -1,5 +1,6 @@
 langchain
 langchain_chroma
+chromadb==0.5.15
 langchain_openai
 langchain-openai
 click
