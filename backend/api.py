@@ -36,7 +36,10 @@ async def recommend_books(request: Request):
     dictul = await request.json()
     book_properties =BookClass
     book_properties.topic=dictul["topic"]
-    
+    book_properties.style=dictul["style"]
+    book_properties.language=dictul["language"]
+    book_properties.min_pages=dictul["min_pages"]
+    book_properties.max_pages=dictul["max_pages"]
     if user:
         print(book_properties)
         result = text_service(book_properties)
