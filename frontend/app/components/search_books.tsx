@@ -5,8 +5,8 @@ export default function SearchBooks(){
     async function onSubmit(event:FormEvent<HTMLFormElement>){
         event.preventDefault() 
 
-        const tokenType = localStorage.getItem('Token Type:')||"";
-        const accessToken = localStorage.getItem('Access Token:')||"";
+        const tokenType = localStorage.getItem('Token Type')||"";
+        const accessToken = localStorage.getItem('Access Token')||"";
   
         fetch('http://localhost:8000/',{
           method:'POST',
