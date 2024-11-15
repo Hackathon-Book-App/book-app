@@ -11,6 +11,7 @@ from Models import BookClass
 
 client=chromadb.HttpClient(host="https://widely-proven-bobcat.ngrok-free.app",port=8000)
 
+
 # Instantiating vectorstore from DB and creating retriever
 
 from langchain_chroma import Chroma
