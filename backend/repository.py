@@ -51,9 +51,7 @@ class Users_Test(SQLModel, table=True):
     
     def create_users(self):
         session.add(self)
-        print("esti aici baa")
         session.commit()
-        print("si ai ajuns si aici")
 
     def read_users():
         statement = select(Users_Test)
