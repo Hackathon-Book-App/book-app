@@ -4,7 +4,8 @@
 > for backend
 
 1. make `OPENAI_API_KEY` environment variable
-1. `pip install -r requirements`  
+1. `pip install -r requirements`
+1. install and configure google cloud API
 1. `fastapi dev run` for running the app
 
 ------
