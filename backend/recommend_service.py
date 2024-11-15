@@ -2,11 +2,12 @@ import chromadb
 
 # Initiating client (the one on RPi)
 
-client = chromadb.HttpClient(
-    host="https://widely-proven-bobcat.ngrok-free.app",
-    port=8000
+chromahost="https://widely-proven-bobcat.ngrok-free.app"
+chromahostport=8000
+#chromahost="http://127.0.0.1"
+#chromahostport=8000
 
-)
+client = chromadb.HttpClient(host=chromahost, port=chromahostport)
 
 # Instantiating vectorstore from DB and creating retriever
 
