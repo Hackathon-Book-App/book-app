@@ -2,6 +2,7 @@
 import SearchBooks from "./components/search_books"
 import Header from "./components/header";
 import GetImage from "./components/get_image";
+import UserReadBooks from "./components/user_read_books";
 
 export default function Home() {
     return(
@@ -13,7 +14,10 @@ export default function Home() {
                 <SearchBooks/>
 
                 <GetImage/>
-            </div>        
+
+                <UserReadBooks/>
+            </div>     
+   
         </>
 
     )
