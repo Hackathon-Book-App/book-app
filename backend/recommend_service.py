@@ -1,5 +1,7 @@
 import chromadb
 
+from Models import BookClass
+
 # Initiating client (the one on RPi)
 
 client = chromadb.HttpClient(
@@ -20,7 +22,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 
-def text_service(book_object):
+def text_service(book_object: BookClass):
 
     # Instantiating LLM
 

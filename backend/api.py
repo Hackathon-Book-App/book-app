@@ -2,9 +2,10 @@ from datetime import timedelta
 import shutil
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException, UploadFile, status
+from fastapi import Depends, FastAPI, HTTPException, UploadFile, status, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from sqlalchemy import null
 
 
 from Models import BookClass, Token
@@ -14,6 +15,7 @@ from repository import Users_Test
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 app = FastAPI()
 
@@ -26,10 +28,19 @@ def health():
 
 
 @app.post("/")
-def recommend_books(book_properties: BookClass):
-    print(book_properties)
-    result = text_service(book_properties)
-    return {'message': result['answer']}
+async def recommend_books(request: Request):
+    token = request.headers.get('Authorization')
+    print(token)
+    user: None | Users_Test =UserAuth.get_current_user(token)
+    print(user)
+    dictul = await request.json()
+    book_properties =BookClass
+    book_properties.topic=dictul["topic"]
+    
+    if user:
+        print(book_properties)
+        result = text_service(book_properties)
+        return {'message': result['answer']}
 
 
 @app.post("/image")
@@ -76,3 +87,8 @@ async def login_for_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
+
+
+@app.post("/getUserBooks")
+async def get_user_books(token: Annotated[str, Depends(oauth2_scheme)]):
+    return "shut up"
