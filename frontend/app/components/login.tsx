@@ -40,10 +40,10 @@ export default function Login(){
         })
         .then(data=>{
             const accessToken=data.access_token;
-            localStorage.setItem('Access Token:',accessToken)
+            localStorage.setItem('Access Token',accessToken)
 
             const tokenType=data.token_type;
-            localStorage.setItem('Token Type:',tokenType)
+            localStorage.setItem('Token Type',tokenType)
             
             setIsLogged({
                 message:'Login Succesfully'

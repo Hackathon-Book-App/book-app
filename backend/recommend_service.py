@@ -1,13 +1,16 @@
 import chromadb
 
+from Models import BookClass
+
 # Initiating client (the one on RPi)
 
-chromahost="https://widely-proven-bobcat.ngrok-free.app"
-chromahostport=8000
-#chromahost="http://127.0.0.1"
-#chromahostport=8000
+#client.host="https://widely-proven-bobcat.ngrok-free.app"
+#client.port=8000
+#client.host="127.0. 0.1"
+#client.port=8000
 
-client = chromadb.HttpClient(host=chromahost, port=chromahostport)
+client=chromadb.HttpClient(host="https://widely-proven-bobcat.ngrok-free.app",port=8000)
+
 
 # Instantiating vectorstore from DB and creating retriever
 
@@ -21,7 +24,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
 
-def text_service(book_object):
+def text_service(book_object: BookClass):
 
     # Instantiating LLM
 

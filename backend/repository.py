@@ -1,6 +1,8 @@
 from sqlmodel import Field, SQLModel, Session, create_engine, select
+from datetime import datetime
+from typing import Optional
 
-ngrok_adress = "2.tcp.eu.ngrok.io:18795"
+ngrok_adress = "7.tcp.eu.ngrok.io:18138"
 mysql_name = "db_users"
 mysql_url = f"mysql+pymysql://coavr:0000@{ngrok_adress}/{mysql_name}"
 
@@ -16,11 +18,37 @@ engine = create_engine(mysql_url, echo=True)
 
 session=Session(engine)
 
+#creating a class for users
+class users(SQLModel, table=True):
+    user_id: int | None = Field(default=None, primary_key=True)
+    credential_id: int | None = Field (default=None, foreign_key="db_users.Users_Test.id")
+    user_type: bool = Field(default=False, nullable=False)  
+    email: str = Field(max_length=105)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    last_login: Optional[datetime] = Field(default=None)
+
+
+#creating a class for books
+class books(SQLModel, table=True):
+    book_id: int | None = Field(default=None, primary_key=True)
+    title: str = Field (max_length=255)
+    author: str = Field (max_length=255)
+    publisher: str = Field (max_length=255)
+    pagecount: Optional[str] = Field (max_length=45)
+    category: str = Field (max_length=100)
+
+#creating a class for user_book links
+class userbooklink(SQLModel, table=True):
+    link_id: int | None = Field(default=None, primary_key=True)
+    user_id: int = Field(default=None, foreign_key="db_users.users.user_id")
+    book_id: int = Field(default=None, foreign_key="db_users.books.book_id")
+
+#creating a class for credentials
 class Users_Test(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    username: str | None = None
-    hashed_password: str | None = None
-
+    username: str = Field (max_length=45)
+    hashed_password: str = Field (max_length=64)
+    
     def create_users(self):
         session.add(self)
         session.commit()
@@ -36,15 +64,3 @@ class Users_Test(SQLModel, table=True):
         results = session.exec(statement)
         user = results.first()
         return user
-
-    def update_users(self):
-        statement = select(Users_Test).where(Users_Test.id == self.id)
-        results = session.exec(statement)
-        user = results.one()
-
-        user = self
-        session.add(user)
-        session.commit()
-        session.refresh(user)
-
-# TODO update and delete

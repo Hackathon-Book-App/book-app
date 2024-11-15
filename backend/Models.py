@@ -2,11 +2,11 @@ from pydantic import BaseModel
 
 
 class BookClass(BaseModel):
-    topic: str 
-    style: str 
-    language: str 
-    min_pages: str 
-    max_pages: str 
+    topic: str | None
+    style: str | None
+    language: str | None
+    min_pages: str | None
+    max_pages: str | None
 
 
 class TokenData(BaseModel):
